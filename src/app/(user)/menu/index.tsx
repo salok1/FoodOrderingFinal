@@ -23,3 +23,6 @@ export default function MenuScreen() {
     />
   );
 }
+
+
+//npx supabase gen types typescript --project-id twuqldjssuvahdhrhhpp > src/database.types.ts

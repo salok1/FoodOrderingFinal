@@ -19,6 +19,10 @@ export type Enums<T extends keyof Database['public']['Enums']> =
 //   price: number;
 // };
 
+type Product = Tables<'products'>;
+
+
+
 export type PizzaSize = 'S' | 'M' | 'L' | 'XL';
 
 export type CartItem = {

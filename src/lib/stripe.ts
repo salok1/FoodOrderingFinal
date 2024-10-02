@@ -6,7 +6,7 @@ import {
 } from '@stripe/stripe-react-native';
 
 const fetchPaymentSheetParams = async (amount: number) => {
-  const { data, error } = await supabase.functions.invoke('payment-sheet', {
+  const { data } = await supabase.functions.invoke('payment-sheet', {
     body: { amount },
   });
   if (data) {

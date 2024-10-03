@@ -60,8 +60,7 @@ const NotificationProvider = ({ children }: PropsWithChildren) => {
     };
   }, []);
 
-  console.log('Push token: ', expoPushToken);
-  console.log('Notif: ', notification);
+
 
   return <>{children}</>;
 };

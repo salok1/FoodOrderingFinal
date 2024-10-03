@@ -9,6 +9,8 @@ const fetchPaymentSheetParams = async (amount: number) => {
   const { data } = await supabase.functions.invoke('payment-sheet', {
     body: { amount },
   });
+
+  console.log(data);
   if (data) {
     console.log(data);
     return data;
@@ -22,6 +24,8 @@ export const initialisePaymentSheet = async (amount: number) => {
 
   const { paymentIntent, publishableKey, customer, ephemeralKey } =
     await fetchPaymentSheetParams(amount);
+
+  console.log(paymentIntent, publishableKey);
 
   if (!paymentIntent || !publishableKey) return;
 
@@ -47,5 +51,5 @@ export const openPaymentSheet = async () => {
   return true;
 };
 
-//erase me
+
 

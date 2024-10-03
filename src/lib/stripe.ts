@@ -6,11 +6,11 @@ import {
 } from '@stripe/stripe-react-native';
 
 const fetchPaymentSheetParams = async (amount: number) => {
+
   const { data } = await supabase.functions.invoke('payment-sheet', {
     body: { amount },
   });
 
-  console.log(data);
   if (data) {
     console.log(data);
     return data;
@@ -20,12 +20,12 @@ const fetchPaymentSheetParams = async (amount: number) => {
 };
 
 export const initialisePaymentSheet = async (amount: number) => {
-  console.log('Initialising payment sheet, for: ', amount);
+  //console.log('Initialising payment sheet, for: ', amount);
 
   const { paymentIntent, publishableKey, customer, ephemeralKey } =
     await fetchPaymentSheetParams(amount);
 
-  console.log(paymentIntent, publishableKey);
+  //console.log("paymentIntent" + paymentIntent, " , publishableKey" + publishableKey);
 
   if (!paymentIntent || !publishableKey) return;
 

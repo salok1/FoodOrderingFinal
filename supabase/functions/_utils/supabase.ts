@@ -16,6 +16,8 @@ export const createOrRetrieveProfile = async (req: Request) => {
     data: { user },
   } = await supabaseClient.auth.getUser();
 
+  console.log("user  " + user);
+
   if (!user) throw new Error('No user found');
 
   const { data: profile, error } = await supabaseClient

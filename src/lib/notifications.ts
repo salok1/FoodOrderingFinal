@@ -36,7 +36,7 @@ export async function registerForPushNotificationsAsync() {
     ).data;
     console.log(token);
   } else {
-    // alert('Must use physical device for Push Notifications');
+     alert('Must use physical device for Push Notifications');
   }
 
   return token;
@@ -78,7 +78,6 @@ const getUserToken = async (userId) => {
 
 export const notifyUserAboutOrderUpdate = async (order: Tables<'orders'>) => {
   const token = await getUserToken(order.user_id);
-  console.log('Order: ', order);
   const title = `Your order is ${order.status}`;
   const body = `Body`;
   sendPushNotification(token, title, body);

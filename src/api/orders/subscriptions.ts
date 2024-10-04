@@ -58,7 +58,7 @@ export const useUpdateOrderSubscriptionList = (id: string, orders) => {
 
     let newOrders = orders;
 
-    console.log ("1111111111111111111" ,newOrders)
+    console.log ("1" ,newOrders)
 
     useEffect(() => {
         const channels = supabase.channel('custom-filter-channel')
@@ -86,7 +86,7 @@ export const useUpdateOrderSubscriptionList = (id: string, orders) => {
         };
     }, []);
 
-    console.log ("22222222222222222222", newOrders);
+    console.log ("2", newOrders);
 
     return newOrders;
 };

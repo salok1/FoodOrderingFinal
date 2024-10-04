@@ -20,12 +20,12 @@ const fetchPaymentSheetParams = async (amount: number) => {
 };
 
 export const initialisePaymentSheet = async (amount: number) => {
-  //console.log('Initialising payment sheet, for: ', amount);
+  console.log('Initialising payment sheet, for: ', amount);
 
   const { paymentIntent, publishableKey, customer, ephemeralKey } =
     await fetchPaymentSheetParams(amount);
 
-  //console.log("paymentIntent" + paymentIntent, " , publishableKey" + publishableKey);
+  console.log("paymentIntent     " + paymentIntent, "              , publishableKey            " + publishableKey);
 
   if (!paymentIntent || !publishableKey) return;
 

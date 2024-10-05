@@ -1,15 +1,37 @@
 import { Text, FlatList, ActivityIndicator } from 'react-native';
 import OrderListItem from '@/components/OrderListItem';
 import { useMyOrderList } from '@/api/orders';
-import { useUpdateOrderSubscriptionList} from '@/api/orders/subscriptions';
 import {useAuth} from "@/providers/AuthProvider";
-import {string} from "prop-types";
+import {useEffect, useState} from "react";
+import {supabase} from "@/lib/supabase";
+import {useQueryClient} from "@tanstack/react-query";
+
 
 export default function OrdersScreen() {
   let { data: orders, isLoading, error } = useMyOrderList();
-  const {profile} = useAuth()
-  useUpdateOrderSubscriptionList(profile.id, orders);
+  const {profile} = useAuth();
+  const id = profile.id;
+  const queryClient = useQueryClient();
 
+  useEffect(() => {
+    const channels = supabase.channel('custom-filter-channel').on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'orders',
+              filter: `user_id=eq.${id}`
+            },
+            (payload) => {
+                queryClient.invalidateQueries(['orders', { userId: id }]);
+            }
+        )
+        .subscribe();
+
+    return () => {
+      channels.unsubscribe();
+    };
+  }, []);
 
   if (isLoading) {
     return <ActivityIndicator />;

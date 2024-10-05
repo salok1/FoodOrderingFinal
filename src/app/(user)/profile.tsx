@@ -1,8 +1,11 @@
 import { supabase } from '@/lib/supabase';
 import { View, Text, Button } from 'react-native';
 import ProfileComponent from "@components/ProfileComponent";
+import React from "react";
 
 const ProfileScreen = () => {
+
+
   return (
     <View>
 

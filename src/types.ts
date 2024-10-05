@@ -21,6 +21,13 @@ export type Enums<T extends keyof Database['public']['Enums']> =
 
 type Product = Tables<'products'>;
 
+export type formProfile = {
+  username: string,
+  fullName: string,
+  avatarUrl: string,
+  website: string,
+  group: "ADMIN" | "USER";
+}
 
 
 export type PizzaSize = 'S' | 'M' | 'L' | 'XL';

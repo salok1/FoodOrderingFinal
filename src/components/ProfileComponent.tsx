@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import {useUpdateProfile} from "@/api/profiles";
+import {useUpdateProduct} from "@/api/products";
+import {useAuth} from "@/providers/AuthProvider";
 
 const UserForm = () => {
     // Define initial state for the form fields
@@ -11,6 +13,9 @@ const UserForm = () => {
         website: '',
         group: ''
     });
+    const {profile} = useAuth();
+
+    const { mutate: updateProfile} = useUpdateProfile();
 
     // Handle changes in the form inputs
     const handleChange = (name, value) => {
@@ -20,8 +25,19 @@ const UserForm = () => {
     // Handle form submission
     const handleSubmit = () => {
         console.log('Form submitted:', formData);
-        //useUpdateProfile(formData, id)
         // Here, you can send the formData to your server or handle it further
+        updateProfile (
+            {
+                id: profile.id,
+                username: formData.username,
+                full_name: formData.fullName,
+                avatar_url: formData.avatarUrl,
+                group: formData.group
+            },
+            {
+                onSuccess: () => {},
+            }
+        );
     };
 
     return (

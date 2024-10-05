@@ -1,10 +1,12 @@
 import { supabase } from '@/lib/supabase';
 import { View, Text, Button } from 'react-native';
+import ProfileComponent from "@components/ProfileComponent";
 
 const ProfileScreen = () => {
   return (
     <View>
-      <Text>Profile</Text>
+
+    <ProfileComponent />
 
       <Button
         title="Sign out"
@@ -15,3 +17,14 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
+
+
+/*
+
+USERNAME
+FULL_NAME
+AVATAR_URL
+WEBSITE
+GROUP
+
+ */

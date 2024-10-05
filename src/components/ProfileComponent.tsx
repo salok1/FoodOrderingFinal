@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, ScrollView} from 'react-native';
 import {useUpdateProfile} from "@/api/profiles";
 import {useUpdateProduct} from "@/api/products";
 import {useAuth} from "@/providers/AuthProvider";
+import DateTimePicker from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
+import { SafeAreaView } from 'react-native';
 
 const UserForm = () => {
     // Define initial state for the form fields
@@ -15,6 +18,8 @@ const UserForm = () => {
     });
     const {profile} = useAuth();
 
+    const [date, setDate] = useState(dayjs());
+
     const { mutate: updateProfile} = useUpdateProfile();
 
     // Handle changes in the form inputs
@@ -24,15 +29,17 @@ const UserForm = () => {
 
     // Handle form submission
     const handleSubmit = () => {
-        console.log('Form submitted:', formData);
         // Here, you can send the formData to your server or handle it further
+
+        console.log(date.toString())
         updateProfile (
             {
                 id: profile.id,
                 username: formData.username,
                 full_name: formData.fullName,
                 avatar_url: formData.avatarUrl,
-                group: formData.group
+                group: formData.group,
+                anniversaire: date.toString()
             },
             {
                 onSuccess: () => {},
@@ -41,6 +48,8 @@ const UserForm = () => {
     };
 
     return (
+        <SafeAreaView >
+        <ScrollView >
         <View style={styles.container}>
             <Text style={styles.label}>USERNAME</Text>
             <TextInput
@@ -83,8 +92,17 @@ const UserForm = () => {
                 placeholder="Enter Group"
             />
 
+            <Text style={styles.label}>ANNIVERSAIRE</Text>
+            <DateTimePicker
+                mode="single"
+                date={date}
+                onChange={(params) => setDate(params.date)}
+            />
+
             <Button title="Submit" onPress={handleSubmit} />
         </View>
+        </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -92,6 +110,10 @@ const UserForm = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
+    },
+    scrollView: {
+        backgroundColor: 'pink',
+        marginHorizontal: 20,
     },
     label: {
         fontSize: 16,
@@ -104,6 +126,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         marginBottom: 15,
+        marginTop: 10
     }
 });
 

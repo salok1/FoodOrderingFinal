@@ -82,3 +82,13 @@ export const notifyUserAboutOrderUpdate = async (order: Tables<'orders'>) => {
   const body = `Body`;
   sendPushNotification(token, title, body);
 };
+
+export const notifyUserAboutAnniversaire = async (profile: Tables<'profiles'>) => {
+  const title = `C'est votre anniversaire aujourd'hui`;
+  const body = `Bon Anniversaire !!!!`;
+  console.log(profile.anniversaire);
+  if (profile.expo_push_token != null) {
+    sendPushNotification(profile.expo_push_token, title, body);
+  }
+};
+
